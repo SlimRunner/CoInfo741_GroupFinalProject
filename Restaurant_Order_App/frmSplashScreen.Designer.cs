@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.timerFadeIn = new System.Windows.Forms.Timer(this.components);
             this.timerFadeOut = new System.Windows.Forms.Timer(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.picBackground = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.picBackground)).BeginInit();
             this.SuspendLayout();
             // 
             // timerFadeIn
@@ -47,32 +47,34 @@
             this.timerFadeOut.Interval = 5000;
             this.timerFadeOut.Tick += new System.EventHandler(this.timerFadeOut_Tick);
             // 
-            // pictureBox1
+            // picBackground
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.Black;
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Image = global::Restaurant_Order_App.Properties.Resources.prego_samui;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(933, 501);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.picBackground.BackColor = System.Drawing.Color.Black;
+            this.picBackground.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.picBackground.Image = global::Restaurant_Order_App.Properties.Resources.prego_samui;
+            this.picBackground.Location = new System.Drawing.Point(0, 0);
+            this.picBackground.Name = "picBackground";
+            this.picBackground.Size = new System.Drawing.Size(933, 501);
+            this.picBackground.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picBackground.TabIndex = 0;
+            this.picBackground.TabStop = false;
+            this.picBackground.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDown_MoveClient);
             // 
             // frmSplashScreen
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(933, 501);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.picBackground);
             this.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmSplashScreen";
             this.Opacity = 0D;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmSplashScreen";
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDown_MoveClient);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picBackground)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -81,6 +83,6 @@
 
         private System.Windows.Forms.Timer timerFadeIn;
         private System.Windows.Forms.Timer timerFadeOut;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox picBackground;
     }
 }

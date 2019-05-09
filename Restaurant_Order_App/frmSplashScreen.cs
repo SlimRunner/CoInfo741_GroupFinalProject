@@ -12,7 +12,10 @@ namespace Restaurant_Order_App
 {
     public partial class frmSplashScreen : Form
     {
+        double fade_transition = 0;
+
         #region This are dll declarations that enable the user to move a borderless form
+
         //Reference
         //https://stackoverflow.com/questions/1592876/make-a-borderless-form-movable
 
@@ -32,47 +35,64 @@ namespace Restaurant_Order_App
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
+
         #endregion
 
+        #region Extra stuff for eye candy effects
+
+        static public double getBezier(double trans,
+            double pivot1_X, double pivot1_Y,
+            double pivot2_X, double pivot2_Y)
+        {
+            return trans;
+
+            /*The following code contains errors testing is still going on*/
+            const double INI_ANCHOR = 0;
+            const double END_ANCHOR = 1;
+
+            double xout, yout, transX;
+            double bin_jump = 0.5; //binary search jump
+
+            transX = trans;
+            do
+            {
+                xout = (INI_ANCHOR * Math.Pow(1 - transX, 3)) +
+                    (3 * pivot1_X * transX * Math.Pow(1 - transX, 2)) +
+                    (3 * pivot2_X * Math.Pow(transX, 2) * (1 - transX)) +
+                    (END_ANCHOR * Math.Pow(transX, 3));
+
+                if (xout < trans)
+                    transX += bin_jump;
+                else
+                    transX -= bin_jump;
+                bin_jump /= 2;
+            } while (Math.Abs(xout - trans) > 0.001);
+
+            yout = (INI_ANCHOR * Math.Pow(1 - transX, 3)) +
+                (3 * pivot1_Y * transX * Math.Pow(1 - transX, 2)) +
+                (3 * pivot2_Y * Math.Pow(transX, 2) * (1 - transX)) +
+                (END_ANCHOR * Math.Pow(transX, 3));
+
+            return yout;
+        }
+
+        #endregion
 
         public frmSplashScreen()
         {
             InitializeComponent();
         }
 
-        static public double getBezierFlat(double trans,
-            double pivot1_X, double pivot1_Y,
-            double pivot2_X, double pivot2_Y)
-        {
-            /*
-             * P0 = (X0,Y0)
-             * P1 = (X1,Y1)
-             * P2 = (X2,Y2)
-             * P3 = (X3,Y3)
-             * 
-             * X(t) = (1-t)^3 * X0 + 3*(1-t)^2 * t * X1 + 3*(1-t) * t^2 * X2 + t^3 * X3
-             * Y(t) = (1-t)^3 * Y0 + 3*(1-t)^2 * t * Y1 + 3*(1-t) * t^2 * Y2 + t^3 * Y3
-             */
-            /*
-            const double ANCHOR1_XY = 0;
-            const double ANCHOR2_XY = 1;
-
-            double outLinearY;
-
-            outLinearY = Math.Pow(1 - trans, 3) * ANCHOR1_XY + 3 * Math.Pow(1 - trans, 2) * trans * pivot1_Y + 3 * (1 - trans) * Math.Pow(trans , 2) * pivot2_Y + Math.Pow(trans , 3) * ANCHOR1_XY;
-
-            return outLinearY;*/
-            return trans;
-        }
-
         private void timerFadeIn_Tick(object sender, EventArgs e)
         {
-            if (this.Opacity < 1)
+            if (fade_transition < 1)
             {
-                this.Opacity += 0.03;
+                fade_transition += 0.03;
+                this.Opacity = getBezier(fade_transition, 0.42, 0, .58, 1); //ease-in-out
             }
             else
             {
+                fade_transition = 1;
                 timerFadeIn.Enabled = false;
             }
         }
@@ -81,12 +101,14 @@ namespace Restaurant_Order_App
         {
             timerFadeOut.Interval = 1;
 
-            if (this.Opacity > 0)
+            if (fade_transition > 0)
             {
-                this.Opacity -= 0.03;
+                fade_transition -= 0.03;
+                this.Opacity = getBezier(fade_transition, 0.42, 0, .58, 1); //ease-in-out
             }
             else
             {
+                fade_transition = 0;
                 timerFadeOut.Enabled = false;
                 this.Close();
             }
