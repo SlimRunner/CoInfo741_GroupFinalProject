@@ -44,36 +44,55 @@ namespace Restaurant_Order_App
             double pivot1_X, double pivot1_Y,
             double pivot2_X, double pivot2_Y)
         {
-            return trans;
+            const double TOLERANCE = 0.0001;
+            double x_out, y_out;
+            double newTrans;
+            double leftNode, rightNode;
+            double binSide;
 
-            /*The following code contains errors testing is still going on*/
-            const double INI_ANCHOR = 0;
-            const double END_ANCHOR = 1;
+            if (trans > 1)
+                trans = 1;
+            else if (trans < 0)
+                trans = 0;
 
-            double xout, yout, transX;
-            double bin_jump = 0.5; //binary search jump
+            leftNode = 0;
+            rightNode = 1;
 
-            transX = trans;
-            do
+            x_out = 3 * pivot1_X * trans * Math.Pow(1 - trans, 2) +
+                3 * pivot2_X * Math.Pow(trans, 2) * (1 - trans) +
+                Math.Pow(trans, 3);
+
+            //negative is left side, positive is right side
+            //left needs addition, right needs subtraction
+            binSide = x_out - trans;
+
+            if (Math.Abs(binSide) < TOLERANCE)
+                return trans;
+
+            newTrans = trans;
+
+            while (Math.Abs(binSide) > TOLERANCE)
             {
-                xout = (INI_ANCHOR * Math.Pow(1 - transX, 3)) +
-                    (3 * pivot1_X * transX * Math.Pow(1 - transX, 2)) +
-                    (3 * pivot2_X * Math.Pow(transX, 2) * (1 - transX)) +
-                    (END_ANCHOR * Math.Pow(transX, 3));
-
-                if (xout < trans)
-                    transX += bin_jump;
+                if (binSide > 0)
+                    rightNode = newTrans;
                 else
-                    transX -= bin_jump;
-                bin_jump /= 2;
-            } while (Math.Abs(xout - trans) > 0.001);
+                    leftNode = newTrans;
 
-            yout = (INI_ANCHOR * Math.Pow(1 - transX, 3)) +
-                (3 * pivot1_Y * transX * Math.Pow(1 - transX, 2)) +
-                (3 * pivot2_Y * Math.Pow(transX, 2) * (1 - transX)) +
-                (END_ANCHOR * Math.Pow(transX, 3));
+                //gets average
+                newTrans = (leftNode + rightNode) * 0.5;
 
-            return yout;
+                x_out = 3 * pivot1_X * newTrans * Math.Pow(1 - newTrans, 2) +
+                    3 * pivot2_X * Math.Pow(newTrans, 2) * (1 - newTrans) +
+                    Math.Pow(newTrans, 3);
+
+                binSide = x_out - trans;
+            }
+
+            y_out = 3 * pivot1_Y * newTrans * Math.Pow(1 - newTrans, 2) +
+                3 * pivot2_Y * Math.Pow(newTrans, 2) * (1 - newTrans) +
+                Math.Pow(newTrans, 3);
+
+            return y_out;
         }
 
         #endregion
@@ -88,7 +107,7 @@ namespace Restaurant_Order_App
             if (fade_transition < 1)
             {
                 fade_transition += 0.03;
-                this.Opacity = getBezier(fade_transition, 0.42, 0, .58, 1); //ease-in-out
+                this.Opacity = getBezier(fade_transition, 0, 0, .58, 1); //ease-out
             }
             else
             {
@@ -104,7 +123,7 @@ namespace Restaurant_Order_App
             if (fade_transition > 0)
             {
                 fade_transition -= 0.03;
-                this.Opacity = getBezier(fade_transition, 0.42, 0, .58, 1); //ease-in-out
+                this.Opacity = getBezier(fade_transition, 0.42, 0, 1, 1); //ease-in
             }
             else
             {
