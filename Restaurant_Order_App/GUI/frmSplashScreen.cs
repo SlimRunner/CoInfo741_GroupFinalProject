@@ -12,13 +12,16 @@ namespace Restaurant_Order_App
 {
     public partial class frmSplashScreen : Form
     {
-        double fade_transition = 0;
+        private double fade_transition = 0;
 
         #region Use of Window's API to enable the user to move a borderless form
 
-        //Reference
-        //https://stackoverflow.com/questions/1592876/make-a-borderless-form-movable
-
+        /* Source of this code
+         * https://stackoverflow.com/questions/1592876/make-a-borderless-form-movable
+         * By
+         * https://stackoverflow.com/users/73070/joey
+         */
+        
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HT_CAPTION = 0x2;
 
