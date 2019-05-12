@@ -157,6 +157,41 @@ namespace Restaurant_Order_App.Core.Classes
                 }
             }
         }
+
+        public static Ingredient Parse(string expression)
+        {
+            string name;
+            decimal cost;
+            decimal markup;
+            double weight;
+            double caloriePerGram;
+            TimeSpan cookingTime;
+            TimeSpan prepareTime;
+
+            string[] lineParams = expression.Split(',');
+            
+            if (lineParams.Length != 7)
+            {
+                throw new ArgumentNullException(nameof(expression));
+            }
+
+            try
+            {
+                name = lineParams[0];
+                cost = decimal.Parse(lineParams[1]);
+                markup = decimal.Parse(lineParams[2]);
+                weight = double.Parse(lineParams[3]);
+                caloriePerGram = double.Parse(lineParams[4]);
+                cookingTime = TimeSpan.Parse(lineParams[5]);
+                prepareTime = TimeSpan.Parse(lineParams[6]);
+            }
+            catch (Exception)
+            {
+                throw new ArgumentNullException(nameof(expression));
+            }
+
+            return new Ingredient(name, cost, markup, weight, caloriePerGram, cookingTime, prepareTime);
+        }
     }
     
     /// <summary>
