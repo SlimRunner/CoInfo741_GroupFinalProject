@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Restaurant_Order_App.Core.Classes;
 
 namespace Restaurant_Order_App
 {
@@ -15,6 +16,11 @@ namespace Restaurant_Order_App
         public frmMain()
         {
             InitializeComponent();
+        }
+
+        private void frmMain_Load(object sender, EventArgs e)
+        {
+            
         }
     }
 }
