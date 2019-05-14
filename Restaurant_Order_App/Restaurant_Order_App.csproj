@@ -46,8 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Classes\Ingredient.cs" />
-    <Compile Include="Core\Classes\MenuDish.cs" />
+    <Compile Include="Core\Classes\FoodMenuItem.cs" />
+    <Compile Include="Core\Classes\InvalidAmount.cs" />
+    <Compile Include="Core\Classes\MenuList.cs" />
     <Compile Include="Core\Interfaces\ITaxable.cs" />
     <Compile Include="Core\Libraries\MyMath.cs" />
     <Compile Include="GUI\frmMain.cs">
