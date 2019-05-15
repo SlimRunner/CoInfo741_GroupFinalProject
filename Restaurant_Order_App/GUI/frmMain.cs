@@ -20,7 +20,9 @@ namespace Restaurant_Order_App
 
         private void frmMain_Load(object sender, EventArgs e)
         {
-            
+            MenuList MenuCarte = new MenuList();
+
+            MenuCarte.LoadMenu("../../../../Final_Workspace/menu_database.txt");
         }
     }
 }

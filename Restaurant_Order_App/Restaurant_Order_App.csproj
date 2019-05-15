@@ -49,6 +49,7 @@
     <Compile Include="Core\Classes\FoodMenuItem.cs" />
     <Compile Include="Core\Classes\InvalidAmount.cs" />
     <Compile Include="Core\Classes\MenuList.cs" />
+    <Compile Include="Core\Classes\MenuOrder.cs" />
     <Compile Include="Core\Interfaces\ITaxable.cs" />
     <Compile Include="Core\Libraries\MyMath.cs" />
     <Compile Include="GUI\frmMain.cs">
@@ -96,6 +97,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\prego-samui.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rest_name.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

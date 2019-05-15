@@ -45,6 +45,9 @@ namespace Restaurant_Order_App
         public frmSplashScreen()
         {
             InitializeComponent();
+
+            picBackground.Controls.Add(picName);
+            //picName.Location = new Point(0, 0);
         }
 
         private void timerFadeIn_Tick(object sender, EventArgs e)

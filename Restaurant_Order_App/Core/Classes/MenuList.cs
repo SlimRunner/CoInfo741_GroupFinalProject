@@ -3,44 +3,103 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Restaurant_Order_App.Core.Classes;
+using System.IO;
 
 namespace Restaurant_Order_App.Core.Classes
 {
+    /// <summary>
+    /// Lists the possible outcome states of the readSalesData
+    /// </summary>
+    enum ReadOutcome
+    {
+        READ_SUCCESS = 0,
+        READ_WITH_ERRORS = 1,
+        READ_FAILED = 2
+    }
+
     class MenuList
     {
-        Dictionary<string, string> keyDishes;
-        //Dictionary<string, Ingredient> keyToppings;
-        //Dictionary<string, Ingredient> keyExtras;
-        private TimeSpan m_prepareTime;
+        private const char DB_ITEM_SEPARATOR = ';';
+        private const char LIST_ITEM_SEPARATOR = ',';
 
-        public MenuList(string s)
+        public Dictionary<string, FoodMenuItem> keyDishes;
+        public Dictionary<string, FoodMenuItem> keyBeverages;
+        public Dictionary<string, FoodMenuItem> keyDesserts;
+
+        public MenuList()
         {
-            //Ingredient.Parse("");
-            //this.keyIngredients = keyIngredients ?? throw new ArgumentNullException(nameof(keyIngredients));
+            keyDishes = new Dictionary<string, FoodMenuItem>();
+            keyBeverages = new Dictionary<string, FoodMenuItem>();
+            keyDesserts = new Dictionary<string, FoodMenuItem>();
         }
 
-        public TimeSpan PreparationTime
+        public ReadOutcome LoadMenu(string path)
         {
-            get
+            //input file variable
+            StreamReader inFile = null;
+            //stores the whole text in the file
+            string flatText = "";
+            string[] stringItems;
+            string id;
+            FoodMenuItem intermediate;
+
+            //stores a value that deteremines if the dataset contains error values
+            bool errFlag = false;
+
+            //checks if file exists
+            if (File.Exists(path))
             {
-                return m_prepareTime;
+                inFile = File.OpenText(path);
+
+                //adds all text into the string without spaces
+                while (!inFile.EndOfStream)
+                {
+                    flatText += inFile.ReadLine();
+                }
+
+                stringItems = flatText.Split(DB_ITEM_SEPARATOR);
+
+                foreach (var item in stringItems)
+                {
+                    id = item.Substring(0, item.IndexOf(LIST_ITEM_SEPARATOR));
+                    intermediate = new FoodMenuItem(item.Substring(item.IndexOf(LIST_ITEM_SEPARATOR) + 1));
+
+                    switch (intermediate.DishType)
+                    {
+                        case FoodType.FT_MAINDISH:
+                            keyDishes.Add(id, intermediate);
+                            break;
+                        case FoodType.FT_BEVERAGE:
+                            keyBeverages.Add(id, intermediate);
+                            break;
+                        case FoodType.FT_DESSERT:
+                            keyDesserts.Add(id, intermediate);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    intermediate = null;
+                }
+
+                //properly closes the file connection
+                inFile.Dispose();
+                inFile = null;
+
+                //if (dataSet.Count == 0)
+                //    return ReadOutcome.READ_FAILED;
+            }
+            else
+            {
+                return ReadOutcome.READ_FAILED;
             }
 
-            private set
+            if (errFlag)
             {
-                if (value.CompareTo(TimeSpan.Zero) >= 0)
-                {
-                    m_prepareTime = value;
-                }
-                else
-                {
-                    throw new
-                        InvalidAmount<TimeSpan>(
-                            "'" + value + "' is not a valid preparation time.",
-                            TimeSpan.Zero, true, false);
-                }
+                return ReadOutcome.READ_WITH_ERRORS;
             }
+
+            return ReadOutcome.READ_SUCCESS;
         }
     }
 }
