@@ -56,8 +56,8 @@ namespace Restaurant_Order_App
             if (fade_transition < 1)
             {
                 //increases the opacity of the form
-                fade_transition += 0.03;
-                this.Opacity = MyMath.getBezier(fade_transition, 0, 0, .58, 1); //ease-out
+                fade_transition += 0.01171875;
+                this.Opacity = MyMath.getBezier(fade_transition, .42, 0, 0, 1); //ease-out
             }
             else
             {
@@ -76,8 +76,8 @@ namespace Restaurant_Order_App
             if (fade_transition > 0)
             {
                 //decreases the opacity of the form
-                fade_transition -= 0.03;
-                this.Opacity = MyMath.getBezier(fade_transition, 0.42, 0, 1, 1); //ease-in
+                fade_transition -= 0.01171875;
+                this.Opacity = MyMath.getBezier(fade_transition, 1, 0, .58, 1); //ease-in
             }
             else
             {

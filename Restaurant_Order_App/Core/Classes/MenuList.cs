@@ -25,12 +25,14 @@ namespace Restaurant_Order_App.Core.Classes
         public Dictionary<string, FoodMenuItem> keyDishes;
         public Dictionary<string, FoodMenuItem> keyBeverages;
         public Dictionary<string, FoodMenuItem> keyDesserts;
+        public Dictionary<string, FoodMenuItem> keySalads;
 
         public MenuList()
         {
             keyDishes = new Dictionary<string, FoodMenuItem>();
             keyBeverages = new Dictionary<string, FoodMenuItem>();
             keyDesserts = new Dictionary<string, FoodMenuItem>();
+            keySalads = new Dictionary<string, FoodMenuItem>();
         }
 
         public ReadOutcome LoadMenu(string path)
@@ -40,7 +42,7 @@ namespace Restaurant_Order_App.Core.Classes
             //stores the whole text in the file
             string flatText = "";
             string[] stringItems;
-            string id;
+            string keyDict;
             FoodMenuItem intermediate;
 
             //stores a value that deteremines if the dataset contains error values
@@ -61,19 +63,22 @@ namespace Restaurant_Order_App.Core.Classes
 
                 foreach (var item in stringItems)
                 {
-                    id = item.Substring(0, item.IndexOf(LIST_ITEM_SEPARATOR));
-                    intermediate = new FoodMenuItem(item.Substring(item.IndexOf(LIST_ITEM_SEPARATOR) + 1));
+                    keyDict = item.Substring(5, item.IndexOf(LIST_ITEM_SEPARATOR,5)-5);
+                    intermediate = new FoodMenuItem(item);
 
                     switch (intermediate.DishType)
                     {
                         case FoodType.FT_MAINDISH:
-                            keyDishes.Add(id, intermediate);
+                            keyDishes.Add(keyDict, intermediate);
                             break;
                         case FoodType.FT_BEVERAGE:
-                            keyBeverages.Add(id, intermediate);
+                            keyBeverages.Add(keyDict, intermediate);
                             break;
                         case FoodType.FT_DESSERT:
-                            keyDesserts.Add(id, intermediate);
+                            keyDesserts.Add(keyDict, intermediate);
+                            break;
+                        case FoodType.FT_SALAD:
+                            keySalads.Add(keyDict, intermediate);
                             break;
                         default:
                             break;

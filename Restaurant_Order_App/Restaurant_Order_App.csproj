@@ -52,6 +52,9 @@
     <Compile Include="Core\Classes\MenuOrder.cs" />
     <Compile Include="Core\Interfaces\ITaxable.cs" />
     <Compile Include="Core\Libraries\MyMath.cs" />
+    <Compile Include="Core\Libraries\ToolStripRadioButtonMenuItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="GUI\frmMain.cs">
       <SubType>Form</SubType>
     </Compile>

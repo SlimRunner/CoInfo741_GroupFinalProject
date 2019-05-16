@@ -11,7 +11,8 @@ namespace Restaurant_Order_App.Core.Classes
     {
         FT_MAINDISH = 0,
         FT_BEVERAGE = 1,
-        FT_DESSERT = 2
+        FT_DESSERT = 2,
+        FT_SALAD = 3
     }
 
     struct AdditionsList
@@ -32,6 +33,7 @@ namespace Restaurant_Order_App.Core.Classes
         private const char LIST_ITEM_SEPARATOR = ',';
         private const char OPTIONS_SEPARATOR = '|';
 
+        private string m_id;
         private string m_name;
         private decimal m_price;
         private double m_calories;
@@ -45,6 +47,7 @@ namespace Restaurant_Order_App.Core.Classes
         {
             string[] splitParams = parseString.Split(LIST_ITEM_SEPARATOR);
 
+            string id;
             string name;
             decimal price;
             double calories;
@@ -55,44 +58,62 @@ namespace Restaurant_Order_App.Core.Classes
             //sets a static format for TimeSpan parsing
             CultureInfo en_us_lang = new CultureInfo("en-US");
 
-            name = splitParams[0];
-            decimal.TryParse(splitParams[1], out price);
-            double.TryParse(splitParams[2], out calories);
-            TimeSpan.TryParse(splitParams[3], en_us_lang, out preparationTime);
-            int.TryParse(splitParams[4], out dishTypeInt);
+            id = splitParams[0];
+            name = splitParams[1];
+            decimal.TryParse(splitParams[2], out price);
+            double.TryParse(splitParams[3], out calories);
+            TimeSpan.TryParse(splitParams[4], en_us_lang, out preparationTime);
+            int.TryParse(splitParams[5], out dishTypeInt);
             dishType = (FoodType)dishTypeInt;
 
             m_options = new List<string>();
             m_additions = new List<AdditionsList>();
             m_extras = new List<AdditionsList>();
 
+            ID = id;
             Name = name;
             Price = price;
             Calories = calories;
             PreparationTime = preparationTime;
             DishType = dishType;
 
-            string[] options = splitParams[5].Split(OPTIONS_SEPARATOR);
-            string[] additions = splitParams[6].Split(OPTIONS_SEPARATOR);
-            string[] extras = splitParams[7].Split(OPTIONS_SEPARATOR);
+            string[] options = splitParams[6].Split(OPTIONS_SEPARATOR);
+            string[] additions = splitParams[7].Split(OPTIONS_SEPARATOR);
+            string[] extras = splitParams[8].Split(OPTIONS_SEPARATOR);
 
-            foreach (var item in options)
+            if (splitParams[6].Length != 0)
             {
-                m_options.Add(item);
+                foreach (var item in options)
+                {
+                    m_options.Add(item);
+                }
             }
 
             decimal newPrice;
 
-            for (int i = 0; i < additions.Length && splitParams[6].Length != 0; i += 2)
+            for (int i = 0; i < additions.Length && splitParams[7].Length != 0; i += 2)
             {
                 decimal.TryParse(additions[i + 1] , out newPrice);
                 m_additions.Add(new AdditionsList(additions[i], newPrice));
             }
 
-            for (int i = 0; i < extras.Length && splitParams[7].Length != 0; i += 2)
+            for (int i = 0; i < extras.Length && splitParams[8].Length != 0; i += 2)
             {
                 decimal.TryParse(extras[i + 1], out newPrice);
                 m_additions.Add(new AdditionsList(extras[i], newPrice));
+            }
+        }
+
+        public string ID
+        {
+            get
+            {
+                return m_id;
+            }
+
+            private set
+            {
+                m_id = value;
             }
         }
 
@@ -189,6 +210,7 @@ namespace Restaurant_Order_App.Core.Classes
                     case FoodType.FT_MAINDISH:
                     case FoodType.FT_BEVERAGE:
                     case FoodType.FT_DESSERT:
+                    case FoodType.FT_SALAD:
                         m_dishType = value;
                         break;
                     default:
@@ -211,5 +233,14 @@ namespace Restaurant_Order_App.Core.Classes
         {
             return m_additions[index];
         }
+
+        public int OptionsLength { get => m_options.Count; }
+
+        public int AdditionsLength { get => m_additions.Count; }
+
+        public int ExtraLengthv { get => m_extras.Count; }
+
+        public bool CanModify { get => (m_options.Count + m_additions.Count + m_extras.Count > 0); }
+
     }
 }
