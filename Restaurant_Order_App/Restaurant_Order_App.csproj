@@ -50,10 +50,15 @@
     <Compile Include="Core\Classes\InvalidAmount.cs" />
     <Compile Include="Core\Classes\MenuList.cs" />
     <Compile Include="Core\Classes\MenuOrder.cs" />
-    <Compile Include="Core\Interfaces\ITaxable.cs" />
     <Compile Include="Core\Libraries\MyMath.cs" />
     <Compile Include="Core\Libraries\ToolStripRadioButtonMenuItem.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\frmCustomizeDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\frmCustomizeDialog.Designer.cs">
+      <DependentUpon>frmCustomizeDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\frmMain.cs">
       <SubType>Form</SubType>
@@ -69,6 +74,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GUI\frmCustomizeDialog.resx">
+      <DependentUpon>frmCustomizeDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>

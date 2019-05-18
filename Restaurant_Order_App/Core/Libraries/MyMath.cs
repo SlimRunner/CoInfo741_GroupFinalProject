@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace Restaurant_Order_App.Core.Libraries
 {
@@ -19,7 +20,7 @@ namespace Restaurant_Order_App.Core.Libraries
         /// <param name="pivot2_X">X coordinate of the second pivot.</param>
         /// <param name="pivot2_Y">Y coordinate of the second pivot.</param>
         /// <returns>The transformed number that follows the specified curve.</returns>
-        static public double getBezier(double trans,
+        static public double GetBezier(double trans,
             double pivot1_X, double pivot1_Y,
             double pivot2_X, double pivot2_Y)
         {
@@ -88,6 +89,56 @@ namespace Restaurant_Order_App.Core.Libraries
                 Math.Pow(newTrans, 3);
 
             return y_out;
+        }
+
+        static public Dictionary<string, List<int>> DispatchParams(string paramString, char mainSeparator, char innerSeparator)
+        {
+            Regex rxTagPattern = new Regex(@"\[\b\w+\b\]");
+            MatchCollection tags;
+            string[] mainClusters;
+            string[] innerParams;
+            string[] keyNames;
+
+            Dictionary<string, List<int>> outParams = new Dictionary<string, List<int>>();
+
+            tags = rxTagPattern.Matches(paramString);
+            paramString = rxTagPattern.Replace(paramString, "");
+            mainClusters = paramString.Split(mainSeparator);
+            
+            keyNames = new string[tags.Count];
+
+            for (int i = 0; i < tags.Count; ++i)
+            {
+                keyNames[i] = tags[i].Value;
+            }
+
+            for (int i = 0; i < tags.Count; ++i)
+            {
+                innerParams = mainClusters[i].Split(innerSeparator);
+                outParams.Add(keyNames[i], new List<int>());
+                
+                foreach (var innerItems in innerParams)
+                {
+                    if (innerItems != "")
+                    {
+                        outParams[keyNames[i]].Add(int.Parse(innerItems));
+                    }
+                }
+            }
+
+            return outParams;
+        }
+
+        static public decimal AddTax(decimal price, decimal taxRate, out decimal tax)
+        {
+            tax = price * taxRate;
+            return price + tax;
+        }
+
+        static public decimal AddTax(decimal price, decimal tip, decimal taxRate, out decimal tax)
+        {
+            tax = price * taxRate;
+            return price + tax + tip;
         }
     }
 }

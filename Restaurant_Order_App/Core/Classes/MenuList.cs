@@ -106,5 +106,19 @@ namespace Restaurant_Order_App.Core.Classes
 
             return ReadOutcome.READ_SUCCESS;
         }
+
+        public FoodMenuItem GetItemById(string id)
+        {
+            if (keyBeverages.ContainsKey(id))
+                return keyBeverages[id];
+            else if (keyDesserts.ContainsKey(id))
+                return keyDesserts[id];
+            else if (keyDishes.ContainsKey(id))
+                return keyDishes[id];
+            else if (keySalads.ContainsKey(id))
+                return keySalads[id];
+            else
+                return null;
+        }
     }
 }

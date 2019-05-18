@@ -57,7 +57,7 @@ namespace Restaurant_Order_App
             {
                 //increases the opacity of the form
                 fade_transition += 0.01171875;
-                this.Opacity = MyMath.getBezier(fade_transition, .42, 0, 0, 1); //ease-out
+                this.Opacity = MyMath.GetBezier(fade_transition, .42, 0, 0, 1); //ease-out
             }
             else
             {
@@ -77,7 +77,7 @@ namespace Restaurant_Order_App
             {
                 //decreases the opacity of the form
                 fade_transition -= 0.01171875;
-                this.Opacity = MyMath.getBezier(fade_transition, 1, 0, .58, 1); //ease-in
+                this.Opacity = MyMath.GetBezier(fade_transition, 1, 0, .58, 1); //ease-in
             }
             else
             {

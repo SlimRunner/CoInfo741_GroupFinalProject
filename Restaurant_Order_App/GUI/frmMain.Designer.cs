@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.mnuStripMain = new System.Windows.Forms.MenuStrip();
             this.mnuProgram = new System.Windows.Forms.ToolStripMenuItem();
-            this.submNewCustomer = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.submHelp = new System.Windows.Forms.ToolStripMenuItem();
             this.submAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -48,6 +46,9 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.lstMenuCarte = new System.Windows.Forms.ListBox();
+            this.cmnuMenuOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmnuAddItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmnuCustomAdd = new System.Windows.Forms.ToolStripMenuItem();
             this.picSelectedFood = new System.Windows.Forms.PictureBox();
             this.lblFoodInfo = new System.Windows.Forms.Label();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
@@ -55,14 +56,14 @@
             this.btnAddItem = new System.Windows.Forms.Button();
             this.btnCustomItem = new System.Windows.Forms.Button();
             this.lblCarteTitle = new System.Windows.Forms.Label();
-            this.lstOrderedItems = new System.Windows.Forms.ListBox();
             this.lblOrderTitle = new System.Windows.Forms.Label();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
-            this.cmnuMenuOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmnuAddItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmnuCustomAdd = new System.Windows.Forms.ToolStripMenuItem();
+            this.lstOrderedItems = new System.Windows.Forms.ListBox();
             this.cmnuOrderOptions = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmnuEditItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.cmnuRemoveItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblDisplaySubtotal = new System.Windows.Forms.Label();
             this.submMainDishes = new ToolStripRadioButtonMenuItem();
             this.submSalads = new ToolStripRadioButtonMenuItem();
             this.submBeverages = new ToolStripRadioButtonMenuItem();
@@ -71,10 +72,10 @@
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
+            this.cmnuMenuOptions.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.picSelectedFood)).BeginInit();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            this.cmnuMenuOptions.SuspendLayout();
             this.cmnuOrderOptions.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -93,8 +94,6 @@
             // mnuProgram
             // 
             this.mnuProgram.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.submNewCustomer,
-            this.toolStripSeparator1,
             this.submHelp,
             this.submAbout,
             this.toolStripSeparator3,
@@ -103,42 +102,30 @@
             this.mnuProgram.Size = new System.Drawing.Size(80, 27);
             this.mnuProgram.Text = "&Program";
             // 
-            // submNewCustomer
-            // 
-            this.submNewCustomer.Name = "submNewCustomer";
-            this.submNewCustomer.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Delete)));
-            this.submNewCustomer.Size = new System.Drawing.Size(239, 28);
-            this.submNewCustomer.Text = "&New Customer";
-            // 
-            // toolStripSeparator1
-            // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(236, 6);
-            // 
             // submHelp
             // 
             this.submHelp.Name = "submHelp";
             this.submHelp.ShortcutKeys = System.Windows.Forms.Keys.F1;
-            this.submHelp.Size = new System.Drawing.Size(239, 28);
+            this.submHelp.Size = new System.Drawing.Size(193, 28);
             this.submHelp.Text = "&Help...";
             // 
             // submAbout
             // 
             this.submAbout.Name = "submAbout";
             this.submAbout.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Shift | System.Windows.Forms.Keys.F1)));
-            this.submAbout.Size = new System.Drawing.Size(239, 28);
+            this.submAbout.Size = new System.Drawing.Size(193, 28);
             this.submAbout.Text = "&About...";
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(236, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(190, 6);
             // 
             // submExit
             // 
             this.submExit.Name = "submExit";
             this.submExit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
-            this.submExit.Size = new System.Drawing.Size(239, 28);
+            this.submExit.Size = new System.Drawing.Size(193, 28);
             this.submExit.Text = "E&xit";
             this.submExit.Click += new System.EventHandler(this.submExit_Click);
             // 
@@ -162,41 +149,39 @@
             // submAddItem
             // 
             this.submAddItem.Name = "submAddItem";
-            this.submAddItem.ShortcutKeyDisplayString = "Alt++";
-            this.submAddItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Oemplus)));
-            this.submAddItem.Size = new System.Drawing.Size(210, 28);
+            this.submAddItem.ShortcutKeyDisplayString = "";
+            this.submAddItem.Size = new System.Drawing.Size(203, 28);
             this.submAddItem.Text = "Add Item";
-            this.submAddItem.Click += new System.EventHandler(this.cmdAddItems_Group);
+            this.submAddItem.Click += new System.EventHandler(this.cmdAddItems_GroupClick);
             // 
             // submRemove
             // 
             this.submRemove.Name = "submRemove";
-            this.submRemove.ShortcutKeyDisplayString = "Alt+-";
-            this.submRemove.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.OemMinus)));
-            this.submRemove.Size = new System.Drawing.Size(210, 28);
+            this.submRemove.ShortcutKeyDisplayString = "";
+            this.submRemove.Size = new System.Drawing.Size(203, 28);
             this.submRemove.Text = "Remove Item";
-            this.submRemove.Click += new System.EventHandler(this.cmdRemoveItems_Group);
+            this.submRemove.Click += new System.EventHandler(this.cmdRemoveItems_GroupClick);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(207, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(200, 6);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(207, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(200, 6);
             // 
             // placeOrderToolStripMenuItem
             // 
             this.placeOrderToolStripMenuItem.Name = "placeOrderToolStripMenuItem";
-            this.placeOrderToolStripMenuItem.Size = new System.Drawing.Size(210, 28);
+            this.placeOrderToolStripMenuItem.Size = new System.Drawing.Size(203, 28);
             this.placeOrderToolStripMenuItem.Text = "Place Order";
             // 
             // clearOrderToolStripMenuItem
             // 
             this.clearOrderToolStripMenuItem.Name = "clearOrderToolStripMenuItem";
-            this.clearOrderToolStripMenuItem.Size = new System.Drawing.Size(210, 28);
+            this.clearOrderToolStripMenuItem.Size = new System.Drawing.Size(203, 28);
             this.clearOrderToolStripMenuItem.Text = "Clear Order";
             // 
             // panel1
@@ -263,6 +248,29 @@
             this.lstMenuCarte.TabIndex = 0;
             this.lstMenuCarte.SelectedIndexChanged += new System.EventHandler(this.lstMenuCarte_SelectedIndexChanged);
             // 
+            // cmnuMenuOptions
+            // 
+            this.cmnuMenuOptions.Font = new System.Drawing.Font("Segoe Print", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmnuMenuOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmnuAddItem,
+            this.cmnuCustomAdd});
+            this.cmnuMenuOptions.Name = "cmnuOrderOptions";
+            this.cmnuMenuOptions.Size = new System.Drawing.Size(220, 60);
+            // 
+            // cmnuAddItem
+            // 
+            this.cmnuAddItem.Name = "cmnuAddItem";
+            this.cmnuAddItem.Size = new System.Drawing.Size(219, 28);
+            this.cmnuAddItem.Text = "Add to Order";
+            this.cmnuAddItem.Click += new System.EventHandler(this.cmdAddItems_GroupClick);
+            // 
+            // cmnuCustomAdd
+            // 
+            this.cmnuCustomAdd.Name = "cmnuCustomAdd";
+            this.cmnuCustomAdd.Size = new System.Drawing.Size(219, 28);
+            this.cmnuCustomAdd.Text = "Customize and Add...";
+            this.cmnuCustomAdd.Click += new System.EventHandler(this.cmdCustomItems_GroupClick);
+            // 
             // picSelectedFood
             // 
             this.picSelectedFood.BackColor = System.Drawing.Color.Black;
@@ -306,45 +314,49 @@
             // 
             // btnRemoveItem
             // 
-            this.btnRemoveItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRemoveItem.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnRemoveItem.Font = new System.Drawing.Font("Segoe Print", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRemoveItem.Location = new System.Drawing.Point(8, 83);
             this.btnRemoveItem.Margin = new System.Windows.Forms.Padding(8, 3, 3, 3);
             this.btnRemoveItem.Name = "btnRemoveItem";
-            this.btnRemoveItem.Size = new System.Drawing.Size(125, 34);
+            this.btnRemoveItem.Size = new System.Drawing.Size(190, 34);
             this.btnRemoveItem.TabIndex = 2;
             this.btnRemoveItem.Text = "&Remove";
             this.btnRemoveItem.UseVisualStyleBackColor = true;
-            this.btnRemoveItem.Click += new System.EventHandler(this.cmdRemoveItems_Group);
+            this.btnRemoveItem.Click += new System.EventHandler(this.cmdRemoveItems_GroupClick);
             // 
             // btnAddItem
             // 
-            this.btnAddItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnAddItem.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnAddItem.Font = new System.Drawing.Font("Segoe Print", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAddItem.Location = new System.Drawing.Point(8, 3);
             this.btnAddItem.Margin = new System.Windows.Forms.Padding(8, 3, 3, 3);
             this.btnAddItem.Name = "btnAddItem";
-            this.btnAddItem.Size = new System.Drawing.Size(125, 34);
+            this.btnAddItem.Size = new System.Drawing.Size(190, 34);
             this.btnAddItem.TabIndex = 0;
-            this.btnAddItem.Text = "&Add to Order";
+            this.btnAddItem.Text = "&Add";
             this.btnAddItem.UseVisualStyleBackColor = true;
-            this.btnAddItem.Click += new System.EventHandler(this.cmdAddItems_Group);
+            this.btnAddItem.Click += new System.EventHandler(this.cmdAddItems_GroupClick);
             // 
             // btnCustomItem
             // 
-            this.btnCustomItem.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnCustomItem.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCustomItem.Enabled = false;
             this.btnCustomItem.Font = new System.Drawing.Font("Segoe Print", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCustomItem.Location = new System.Drawing.Point(8, 43);
             this.btnCustomItem.Margin = new System.Windows.Forms.Padding(8, 3, 3, 3);
             this.btnCustomItem.Name = "btnCustomItem";
-            this.btnCustomItem.Size = new System.Drawing.Size(125, 34);
+            this.btnCustomItem.Size = new System.Drawing.Size(190, 34);
             this.btnCustomItem.TabIndex = 1;
-            this.btnCustomItem.Text = "&Customize...";
+            this.btnCustomItem.Text = "Add &Custom...";
             this.btnCustomItem.UseVisualStyleBackColor = true;
+            this.btnCustomItem.Click += new System.EventHandler(this.cmdCustomItems_GroupClick);
             // 
             // lblCarteTitle
             // 
@@ -357,20 +369,6 @@
             this.lblCarteTitle.Size = new System.Drawing.Size(298, 33);
             this.lblCarteTitle.TabIndex = 0;
             this.lblCarteTitle.Text = "Delicioso E-Ristorante &Menu:";
-            // 
-            // lstOrderedItems
-            // 
-            this.lstOrderedItems.ContextMenuStrip = this.cmnuOrderOptions;
-            this.lstOrderedItems.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstOrderedItems.Font = new System.Drawing.Font("Segoe Print", 14.25F);
-            this.lstOrderedItems.FormattingEnabled = true;
-            this.lstOrderedItems.ItemHeight = 33;
-            this.lstOrderedItems.Location = new System.Drawing.Point(3, 3);
-            this.lstOrderedItems.Name = "lstOrderedItems";
-            this.tableLayoutPanel4.SetRowSpan(this.lstOrderedItems, 2);
-            this.lstOrderedItems.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
-            this.lstOrderedItems.Size = new System.Drawing.Size(643, 280);
-            this.lstOrderedItems.TabIndex = 0;
             // 
             // lblOrderTitle
             // 
@@ -391,6 +389,7 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 30F));
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel4.Controls.Add(this.lstOrderedItems, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.lblDisplaySubtotal, 1, 0);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(0, 351);
             this.tableLayoutPanel4.Margin = new System.Windows.Forms.Padding(0);
@@ -401,49 +400,66 @@
             this.tableLayoutPanel4.Size = new System.Drawing.Size(1128, 286);
             this.tableLayoutPanel4.TabIndex = 4;
             // 
-            // cmnuMenuOptions
+            // lstOrderedItems
             // 
-            this.cmnuMenuOptions.Font = new System.Drawing.Font("Segoe Print", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmnuMenuOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.cmnuAddItem,
-            this.cmnuCustomAdd});
-            this.cmnuMenuOptions.Name = "cmnuOrderOptions";
-            this.cmnuMenuOptions.Size = new System.Drawing.Size(220, 60);
-            // 
-            // cmnuAddItem
-            // 
-            this.cmnuAddItem.Name = "cmnuAddItem";
-            this.cmnuAddItem.Size = new System.Drawing.Size(219, 28);
-            this.cmnuAddItem.Text = "Add to Order";
-            this.cmnuAddItem.Click += new System.EventHandler(this.cmdAddItems_Group);
-            // 
-            // cmnuCustomAdd
-            // 
-            this.cmnuCustomAdd.Name = "cmnuCustomAdd";
-            this.cmnuCustomAdd.Size = new System.Drawing.Size(219, 28);
-            this.cmnuCustomAdd.Text = "Customize and Add...";
+            this.lstOrderedItems.ContextMenuStrip = this.cmnuOrderOptions;
+            this.lstOrderedItems.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstOrderedItems.Font = new System.Drawing.Font("Segoe Print", 14.25F);
+            this.lstOrderedItems.FormattingEnabled = true;
+            this.lstOrderedItems.ItemHeight = 33;
+            this.lstOrderedItems.Location = new System.Drawing.Point(3, 3);
+            this.lstOrderedItems.Name = "lstOrderedItems";
+            this.tableLayoutPanel4.SetRowSpan(this.lstOrderedItems, 2);
+            this.lstOrderedItems.SelectionMode = System.Windows.Forms.SelectionMode.MultiExtended;
+            this.lstOrderedItems.Size = new System.Drawing.Size(643, 280);
+            this.lstOrderedItems.TabIndex = 0;
             // 
             // cmnuOrderOptions
             // 
             this.cmnuOrderOptions.Font = new System.Drawing.Font("Segoe Print", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmnuOrderOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmnuEditItem,
+            this.toolStripSeparator5,
             this.cmnuRemoveItem});
             this.cmnuOrderOptions.Name = "cmnuOrderOptions";
-            this.cmnuOrderOptions.Size = new System.Drawing.Size(213, 32);
+            this.cmnuOrderOptions.Size = new System.Drawing.Size(213, 88);
+            this.cmnuOrderOptions.Opening += new System.ComponentModel.CancelEventHandler(this.cmnuOrderOptions_Opening);
+            // 
+            // cmnuEditItem
+            // 
+            this.cmnuEditItem.Name = "cmnuEditItem";
+            this.cmnuEditItem.Size = new System.Drawing.Size(212, 28);
+            this.cmnuEditItem.Tag = "edit";
+            this.cmnuEditItem.Text = "Edit Item";
+            this.cmnuEditItem.Click += new System.EventHandler(this.cmdCustomItems_GroupClick);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(209, 6);
             // 
             // cmnuRemoveItem
             // 
             this.cmnuRemoveItem.Name = "cmnuRemoveItem";
             this.cmnuRemoveItem.Size = new System.Drawing.Size(212, 28);
             this.cmnuRemoveItem.Text = "Remove from Order";
-            this.cmnuRemoveItem.Click += new System.EventHandler(this.cmdRemoveItems_Group);
+            this.cmnuRemoveItem.Click += new System.EventHandler(this.cmdRemoveItems_GroupClick);
+            // 
+            // lblDisplaySubtotal
+            // 
+            this.lblDisplaySubtotal.AutoSize = true;
+            this.lblDisplaySubtotal.Location = new System.Drawing.Point(652, 0);
+            this.lblDisplaySubtotal.Name = "lblDisplaySubtotal";
+            this.lblDisplaySubtotal.Size = new System.Drawing.Size(51, 23);
+            this.lblDisplaySubtotal.TabIndex = 1;
+            this.lblDisplaySubtotal.Text = "label1";
             // 
             // submMainDishes
             // 
             this.submMainDishes.CheckOnClick = true;
             this.submMainDishes.Name = "submMainDishes";
             this.submMainDishes.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D1)));
-            this.submMainDishes.Size = new System.Drawing.Size(210, 28);
+            this.submMainDishes.Size = new System.Drawing.Size(203, 28);
             this.submMainDishes.Tag = "0";
             this.submMainDishes.Text = "Main Dishes";
             this.submMainDishes.Click += new System.EventHandler(this.submFoodCategory_GroupClick);
@@ -453,7 +469,7 @@
             this.submSalads.CheckOnClick = true;
             this.submSalads.Name = "submSalads";
             this.submSalads.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D2)));
-            this.submSalads.Size = new System.Drawing.Size(210, 28);
+            this.submSalads.Size = new System.Drawing.Size(203, 28);
             this.submSalads.Tag = "3";
             this.submSalads.Text = "Salads";
             this.submSalads.Click += new System.EventHandler(this.submFoodCategory_GroupClick);
@@ -463,7 +479,7 @@
             this.submBeverages.CheckOnClick = true;
             this.submBeverages.Name = "submBeverages";
             this.submBeverages.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D3)));
-            this.submBeverages.Size = new System.Drawing.Size(210, 28);
+            this.submBeverages.Size = new System.Drawing.Size(203, 28);
             this.submBeverages.Tag = "1";
             this.submBeverages.Text = "Beverages";
             this.submBeverages.Click += new System.EventHandler(this.submFoodCategory_GroupClick);
@@ -473,7 +489,7 @@
             this.submDesserts.CheckOnClick = true;
             this.submDesserts.Name = "submDesserts";
             this.submDesserts.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.D4)));
-            this.submDesserts.Size = new System.Drawing.Size(210, 28);
+            this.submDesserts.Size = new System.Drawing.Size(203, 28);
             this.submDesserts.Tag = "2";
             this.submDesserts.Text = "Desserts";
             this.submDesserts.Click += new System.EventHandler(this.submFoodCategory_GroupClick);
@@ -497,10 +513,11 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.tableLayoutPanel2.ResumeLayout(false);
+            this.cmnuMenuOptions.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.picSelectedFood)).EndInit();
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
-            this.cmnuMenuOptions.ResumeLayout(false);
+            this.tableLayoutPanel4.PerformLayout();
             this.cmnuOrderOptions.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -511,13 +528,11 @@
 
         private System.Windows.Forms.MenuStrip mnuStripMain;
         private System.Windows.Forms.ToolStripMenuItem mnuProgram;
-        private System.Windows.Forms.ToolStripMenuItem submNewCustomer;
         private System.Windows.Forms.ToolStripMenuItem submHelp;
         private System.Windows.Forms.ToolStripMenuItem submExit;
         private System.Windows.Forms.ToolStripMenuItem mnuOrder;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem clearOrderToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem submAbout;
@@ -547,6 +562,9 @@
         private System.Windows.Forms.ToolStripMenuItem cmnuCustomAdd;
         private System.Windows.Forms.ContextMenuStrip cmnuOrderOptions;
         private System.Windows.Forms.ToolStripMenuItem cmnuRemoveItem;
+        private System.Windows.Forms.ToolStripMenuItem cmnuEditItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.Label lblDisplaySubtotal;
     }
 }
 

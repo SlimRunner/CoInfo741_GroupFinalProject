@@ -17,8 +17,8 @@ namespace Restaurant_Order_App.Core.Classes
 
     struct AdditionsList
     {
-        string name;
-        decimal price;
+        public string name;
+        public decimal price;
 
         public AdditionsList(string name, decimal price)
         {
@@ -100,7 +100,7 @@ namespace Restaurant_Order_App.Core.Classes
             for (int i = 0; i < extras.Length && splitParams[8].Length != 0; i += 2)
             {
                 decimal.TryParse(extras[i + 1], out newPrice);
-                m_additions.Add(new AdditionsList(extras[i], newPrice));
+                m_extras.Add(new AdditionsList(extras[i], newPrice));
             }
         }
 
@@ -231,14 +231,14 @@ namespace Restaurant_Order_App.Core.Classes
 
         public AdditionsList Extra(int index)
         {
-            return m_additions[index];
+            return m_extras[index];
         }
 
         public int OptionsLength { get => m_options.Count; }
 
         public int AdditionsLength { get => m_additions.Count; }
 
-        public int ExtraLengthv { get => m_extras.Count; }
+        public int ExtraLength { get => m_extras.Count; }
 
         public bool CanModify { get => (m_options.Count + m_additions.Count + m_extras.Count > 0); }
 
